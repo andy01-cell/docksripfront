@@ -20,12 +20,12 @@ const Hasill = () => {
 
     // Mendapatkan data dari koleksi yang Anda simpan di Firestore
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "skripsi"));
+      const querySnapshot = await getDocs(collection(db, "klasifikasi"));
       const newData = querySnapshot.docs.map((doc, index) => ({
         id: index + 1,
         nk: doc.data().judul,
         d: doc.data().abstrak,
-        class: doc.data().prediksi,
+        class: doc.data().ensemble,
       }));
       setData(newData);
     };
