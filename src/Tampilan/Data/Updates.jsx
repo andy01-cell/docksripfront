@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from "react";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../database/firebase";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Data = () => {
+const Updates = () => {
   const navigate = useNavigate();
+  const idubah = useLocation();
+  const idji = idubah.ubah.dataid;
   const [state, setState] = useState({
     nim: "",
     tahun: "",
@@ -14,36 +14,64 @@ const Data = () => {
     abstrak: "",
   });
 
-  
+  console.log("idnya = ", idji);
 
-  const onBtnsimpan = (e) => {
-    e.preventDefault();
-    console.log(state);
-    const collectionRef = collection(db, "skripsi");
-    addDoc(collectionRef, {
-      nim: state.nim,
-      tahun: state.tahun,
-      judul: state.judul,
-      abstrak: state.abstrak,
-    })
-      .then((docRef) => {
-        console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
-        navigate("/data")
-      })
-      .catch((error) => {
-        console.error("Error menambahkan dokumen: ", error);
-      });
+  //   useEffect(() => {
+  //     // Inisialisasi Firebase dan Firestore
+  //     const db = getFirestore();
+  //     const fetchData = async () => {
+  //       try {
+  //         const skripsiRef = doc(db, "skripsi", id);
+  //         const docSnap = await getDoc(skripsiRef);
+  //         if (docSnap.exists()) {
+  //           const data = docSnap.data();
+  //           setState({
+  //             nim: data.nim,
+  //             tahun: data.tahun,
+  //             judul: data.judul,
+  //             abstrak: data.abstrak,
+  //           });
+  //         } else {
+  //           console.log("Dokumen tidak ditemukan!");
+  //         }
+  //       } catch (error) {
+  //         console.error("Error mengambil data:", error);
+  //       }
+  //     };
 
-    
+  //     fetchData();
+  //   }, [id]);
+
+  const onHandledChanged = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const onHandledChanged = (event) => {
-    const name = event.target.name;
-    // setCurrency(event.target.value);
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+  const onBtnsimpan = () => {
+    const db = getFirestore();
+    const { nim, tahun, judul, abstrak } = state;
+
+    // const skripsiRef = doc(db, "skripsi", id);
+
+    // // Update data di Firestore
+    // updateDoc(skripsiRef, {
+    //   nim,
+    //   tahun,
+    //   judul,
+    //   abstrak,
+    // })
+    //   .then(() => {
+    //     console.log("Data berhasil diperbarui");
+    //     // Redirect atau lakukan tindakan lain yang diperlukan setelah pembaruan
+    //     alert("Data berhasil diperbarui");
+    //     navigate("/data");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error memperbarui data:", error);
+    //   });
   };
 
   return (
@@ -52,7 +80,7 @@ const Data = () => {
         <Grid container justifyContent="center" xs={12} md={12}>
           <Grid item xs={12} md={12}>
             <Typography textAlign="center" variant="p" fontSize="24px">
-              Tambah Data Skripsi
+              Ubah Data Skripsi
             </Typography>
           </Grid>
           <Grid item xs={12} md={12} marginTop="40px">
@@ -63,6 +91,7 @@ const Data = () => {
               autoComplete="nim"
               onChange={onHandledChanged}
               required
+              value={state.nim}
             />
           </Grid>
           <Grid item xs={12} md={12} marginTop="30px">
@@ -75,6 +104,7 @@ const Data = () => {
               // InputLabelProps={{ shrink: true, required: true }}
               onChange={onHandledChanged}
               required
+              value={state.tahun}
             />
           </Grid>
           <Grid item xs={12} md={12} marginTop="30px">
@@ -85,6 +115,7 @@ const Data = () => {
               autoComplete="judul"
               onChange={onHandledChanged}
               required
+              value={state.judul}
             />
           </Grid>
           <Grid item xs={12} md={12} marginTop="30px">
@@ -95,6 +126,7 @@ const Data = () => {
               autoComplete="abstrak"
               onChange={onHandledChanged}
               required
+              value={state.abstrak}
             />
           </Grid>
           <Grid item xs={1.5} md={1.5} marginTop="30px">
@@ -116,8 +148,9 @@ const Data = () => {
           </Grid>
         </Grid>
       </Grid>
+      
     </Grid>
   );
 };
 
-export default Data;
+export default Updates;
