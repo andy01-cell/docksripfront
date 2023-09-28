@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Updates = () => {
   const navigate = useNavigate();
   const idubah = useLocation();
-  const idji = idubah.ubah.dataid;
+  const idji = idubah.state.test;
   const [state, setState] = useState({
     nim: "",
     tahun: "",
@@ -16,31 +16,31 @@ const Updates = () => {
 
   console.log("idnya = ", idji);
 
-  //   useEffect(() => {
-  //     // Inisialisasi Firebase dan Firestore
-  //     const db = getFirestore();
-  //     const fetchData = async () => {
-  //       try {
-  //         const skripsiRef = doc(db, "skripsi", id);
-  //         const docSnap = await getDoc(skripsiRef);
-  //         if (docSnap.exists()) {
-  //           const data = docSnap.data();
-  //           setState({
-  //             nim: data.nim,
-  //             tahun: data.tahun,
-  //             judul: data.judul,
-  //             abstrak: data.abstrak,
-  //           });
-  //         } else {
-  //           console.log("Dokumen tidak ditemukan!");
-  //         }
-  //       } catch (error) {
-  //         console.error("Error mengambil data:", error);
-  //       }
-  //     };
+  useEffect(() => {
+    // Inisialisasi Firebase dan Firestore
+    const db = getFirestore();
+    const fetchData = async () => {
+      try {
+        const skripsiRef = doc(db, "skripsi", idji);
+        const docSnap = await getDoc(skripsiRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setState({
+            nim: data.nim,
+            tahun: data.tahun,
+            judul: data.judul,
+            abstrak: data.abstrak,
+          });
+        } else {
+          console.log("Dokumen tidak ditemukan!");
+        }
+      } catch (error) {
+        console.error("Error mengambil data:", error);
+      }
+    };
 
-  //     fetchData();
-  //   }, [id]);
+    fetchData();
+  }, [idji]);
 
   const onHandledChanged = (e) => {
     const { name, value } = e.target;
@@ -54,24 +54,24 @@ const Updates = () => {
     const db = getFirestore();
     const { nim, tahun, judul, abstrak } = state;
 
-    // const skripsiRef = doc(db, "skripsi", id);
+    const skripsiRef = doc(db, "skripsi", idji);
 
-    // // Update data di Firestore
-    // updateDoc(skripsiRef, {
-    //   nim,
-    //   tahun,
-    //   judul,
-    //   abstrak,
-    // })
-    //   .then(() => {
-    //     console.log("Data berhasil diperbarui");
-    //     // Redirect atau lakukan tindakan lain yang diperlukan setelah pembaruan
-    //     alert("Data berhasil diperbarui");
-    //     navigate("/data");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error memperbarui data:", error);
-    //   });
+    // Update data di Firestore
+    updateDoc(skripsiRef, {
+      nim,
+      tahun,
+      judul,
+      abstrak,
+    })
+      .then(() => {
+        console.log("Data berhasil diperbarui");
+        // Redirect atau lakukan tindakan lain yang diperlukan setelah pembaruan
+        alert("Data berhasil diperbarui");
+        navigate("/data");
+      })
+      .catch((error) => {
+        console.error("Error memperbarui data:", error);
+      });
   };
 
   return (
@@ -148,7 +148,6 @@ const Updates = () => {
           </Grid>
         </Grid>
       </Grid>
-      
     </Grid>
   );
 };

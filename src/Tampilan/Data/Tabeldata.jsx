@@ -80,6 +80,14 @@ const Tabeldata = () => {
     },
   ];
 
+  const aksiupdate = (dataubah) => {
+    navigate("/update", {
+      state: {
+        test: dataubah,
+      },
+    });
+  };
+
   useEffect(() => {
     // Inisialisasi Firebase dan Firestore
     const db = getFirestore();
@@ -105,12 +113,9 @@ const Tabeldata = () => {
   console.log("test = ", datapredik.state);
 
   const handleUbahClick = (id) => {
-    console.log("id = ", id);
-    navigate("/update", {
-      ubah: {
-        dataid: id,
-      },
-    }); // Navigasi ke halaman '/update'
+    const dataubah = id;
+    console.log("id = ", dataubah);
+    aksiupdate(dataubah);
   };
 
   const handleHapusClick = async (id) => {
