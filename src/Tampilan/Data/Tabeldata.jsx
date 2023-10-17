@@ -138,6 +138,48 @@ const Tabeldata = () => {
     setData(updatedData);
   };
 
+  const onBnewdata = (
+    prediksiensemble,
+    akurasiNB,
+    akurasiensemble,
+    akurasiknn,
+    akurasisvm,
+    MAENB,
+    MAEensemble,
+    MAEknn,
+    MAEsvm
+  ) => {
+    const collectionRef = collection(db, "klasifikasi");
+    prediksiensemble.forEach((item) => {
+      addDoc(collectionRef, {
+        ensemble: item.ensemble_prediksi,
+        abstrak: item.abstrak,
+        judul: item.judul,
+      })
+        .then((docRef) => {
+          console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
+        })
+        .catch((error) => {
+          console.error("Error menambahkan dokumen: ", error);
+          alert("Error menambahkan dokumen");
+        });
+    });
+
+    navigate("/Hasiluji", {
+      state: {
+        prediksi: prediksiensemble,
+        akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
+        akurasisvm: parseFloat(akurasisvm * 100).toFixed(2),
+        akurasiNB: parseFloat(akurasiNB * 100).toFixed(2),
+        akurasiensemble: parseFloat(akurasiensemble * 100).toFixed(2),
+        maesvm: MAEsvm,
+        maeknn: MAEknn,
+        maeNB: MAENB,
+        maeensemble: MAEensemble,
+      },
+    });
+  };
+
   const onBtnklasifikasi = (e) => {
     e.preventDefault();
     const jsonData = {
@@ -170,39 +212,64 @@ const Tabeldata = () => {
         const MAEensemble = res.data.ensemblemae;
         console.log("post succes : ", res.data.Naive_Bayes_MAE);
 
-        const collectionRef = collection(db, "klasifikasi");
-        prediksiensemble.forEach((item) => {
-          addDoc(collectionRef, {
-            ensemble: item.ensemble_prediksi,
-            abstrak: item.abstrak,
-            judul: item.judul,
-          })
-            .then((docRef) => {
-              console.log(
-                "Dokumen berhasil ditambahkan dengan ID: ",
-                docRef.id
-              );
-              alert("Dokumen berhasil ditambahkan dengan ID");
-            })
-            .catch((error) => {
-              console.error("Error menambahkan dokumen: ", error);
-              alert("Error menambahkan dokumen");
-            });
-        });
+        const deleteref = collection(db, "klasifikasi");
+        getDocs(deleteref).then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            deleteDoc(doc.ref)
+              .then(() => {
+                console.log("Dokumen berhasil dihapus: ", doc.id);
+              })
+              .catch((error) => {
+                console.error("Error menghapus dokumen: ", error);
+              });
+          });
+          alert("Dokumen berhasil ditambahkan dengan ID");
 
-        navigate("/Hasiluji", {
-          state: {
-            prediksi: prediksiensemble,
-            akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
-            akurasisvm: parseFloat(akurasisvm * 100).toFixed(2),
-            akurasiNB: parseFloat(akurasiNB * 100).toFixed(2),
-            akurasiensemble: parseFloat(akurasiensemble * 100).toFixed(2),
-            maesvm: MAEsvm,
-            maeknn: MAEknn,
-            maeNB: MAENB,
-            maeensemble: MAEensemble,
-          },
+          const collectionRef = collection(db, "klasifikasi");
+          prediksiensemble.forEach((item) => {
+            addDoc(collectionRef, {
+              ensemble: item.ensemble_prediksi,
+              abstrak: item.abstrak,
+              judul: item.judul,
+            })
+              .then((docRef) => {
+                console.log(
+                  "Dokumen berhasil ditambahkan dengan ID: ",
+                  docRef.id
+                );
+                // alert("Dokumen berhasil ditambahkan dengan ID");
+              })
+              .catch((error) => {
+                console.error("Error menambahkan dokumen: ", error);
+                alert("Error menambahkan dokumen");
+              });
+          });
+
+          navigate("/Hasiluji", {
+            state: {
+              prediksi: prediksiensemble,
+              akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
+              akurasisvm: parseFloat(akurasisvm * 100).toFixed(2),
+              akurasiNB: parseFloat(akurasiNB * 100).toFixed(2),
+              akurasiensemble: parseFloat(akurasiensemble * 100).toFixed(2),
+              maesvm: MAEsvm,
+              maeknn: MAEknn,
+              maeNB: MAENB,
+              maeensemble: MAEensemble,
+            },
+          });
         });
+        // onBnewdata(
+        //   prediksiensemble,
+        //   akurasiNB,
+        //   akurasiensemble,
+        //   akurasiknn,
+        //   akurasisvm,
+        //   MAENB,
+        //   MAEensemble,
+        //   MAEknn,
+        //   MAEsvm
+        // );
       })
       .catch((err) => {
         console.log("ERRRR:: ", err.response.data);
@@ -210,19 +277,23 @@ const Tabeldata = () => {
   };
 
   return (
-    <Grid container xs={12} md={12} justifyContent="center">
-      <Grid item xs={12} md={11.7} marginTop="50px">
+    <Grid container xs={12} md={12} justifyContent="end" marginRight="20px">
+      <Grid item xs={12} md={12} marginTop="50px">
         <Typography variant="p" fontSize="24px">
           Data Hasil Klasifikasi
         </Typography>
       </Grid>
+      <Grid item xs={12} md={12}>
+        {/* Elemen ini akan mengisi sisa lebar ke kiri */}
+      </Grid>
       <Grid
         item
-        xs={12}
-        md={11.7}
-        marginTop="-30px"
-        marginBottom="60px"
-        marginLeft="143vh"
+        // xs={12}
+        // md={11.7}
+        // marginTop="30px"
+        // marginBottom="60px"
+        // marginLeft="143vh"
+        sx={{ justifySelf: "start" }}
       >
         <Button
           variant="contained"
@@ -233,10 +304,10 @@ const Tabeldata = () => {
         </Button>
       </Grid>
 
-      <Grid item xs={11} md={11.7} style={{ height: 400 }} marginTop="-80px">
+      <Grid item xs={11} md={12} style={{ height: 400 }}>
         <DataGrid rows={data} columns={columns} />
       </Grid>
-      <Grid item xs={12} md={11.7} marginTop="0px" marginLeft="75vh">
+      <Grid item xs={12} md={12} marginLeft="75vh">
         <Button
           variant="contained"
           sx={{ backgroundColor: "#646632" }}

@@ -6,16 +6,27 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { useState } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-const drawerWidth = 335;
 const Drawers = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [disabled, setDisabled] = useState("");
   const [disabled1, setDisabled1] = useState("");
   const [disabled2, setDisabled2] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(0);
+
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(335);
+  };
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(0);
+  };
 
   const informasiklik = (params) => {
     console.log("test => ", params);
@@ -47,13 +58,20 @@ const Drawers = () => {
       }}
     >
       <CssBaseline />
+      <Box
+      >
+        <IconButton onClick={handleDrawerOpen}>
+          {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
+          {isDrawerOpen ? <ChevronLeftIcon /> : <MenuIcon />}
+        </IconButton>
+      </Box>
       <Drawer
         sx={{
-          width: drawerWidth,
-          backgroundColor: "#646632",
+          width: isDrawerOpen,
+          // backgroundColor: "#646632",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: isDrawerOpen,
             boxSizing: "border-box",
           },
         }}
@@ -66,6 +84,13 @@ const Drawers = () => {
             height: "100vh",
           }}
         >
+          <IconButton
+            onClick={handleDrawerClose}
+            // sx={{ backgroundColor: "#646632" }}
+          >
+            {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
+            {isDrawerOpen ? <MenuIcon /> : <MenuIcon />}
+          </IconButton>
           <ListItem>
             <Grid container paddingTop="50px">
               <Grid item xs={12} md={12}>
