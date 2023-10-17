@@ -14,8 +14,6 @@ const Data = () => {
     abstrak: "",
   });
 
-  
-
   const onBtnsimpan = (e) => {
     e.preventDefault();
     console.log(state);
