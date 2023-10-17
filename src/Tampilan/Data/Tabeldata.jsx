@@ -158,7 +158,6 @@ const Tabeldata = () => {
       })
         .then((docRef) => {
           console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
-          // alert("Dokumen berhasil ditambahkan dengan ID");
         })
         .catch((error) => {
           console.error("Error menambahkan dokumen: ", error);
@@ -224,7 +223,8 @@ const Tabeldata = () => {
                 console.error("Error menghapus dokumen: ", error);
               });
           });
-          alert("Dokumen berhasil dihapus: ", doc.id);
+          alert("Dokumen berhasil ditambahkan dengan ID");
+
           const collectionRef = collection(db, "klasifikasi");
           prediksiensemble.forEach((item) => {
             addDoc(collectionRef, {

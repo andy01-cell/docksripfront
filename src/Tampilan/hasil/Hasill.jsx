@@ -18,7 +18,6 @@ const Hasill = () => {
 
   const downloadExcel = async () => {
     // Ambil data dari Firestore (contoh menggunakan koleksi "klasifikasi")
-    alert("test");
     const collectionRef = collection(db, "klasifikasi");
     const querySnapshot = await getDocs(collectionRef);
     const data = [];
@@ -30,6 +29,8 @@ const Hasill = () => {
     // Buat file Excel
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet("Data Firestore");
+
+    worksheet.addRow(["ensemble", "abstrak", "judul"]);
 
     // Tambahkan data ke worksheet
     data.forEach((item) => {
