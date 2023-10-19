@@ -39,9 +39,10 @@ const Tabeldata = () => {
   const columns = [
     { field: "no", headerName: "No", width: 50 },
     { field: "nim", headerName: "NIM", width: 130 },
+    { field: "nama", headerName: "Nama", width: 130 },
     { field: "tahun", headerName: "Tahun", width: 70 },
-    { field: "judul", headerName: "Judul", width: 280 },
-    { field: "abstrak", headerName: "Abstrak", width: 280 },
+    { field: "judul", headerName: "Judul", width: 200 },
+    { field: "abstrak", headerName: "Abstrak", width: 220 },
     {
       field: "opsi",
       headerName: "Opsi",
@@ -99,6 +100,7 @@ const Tabeldata = () => {
         id: doc.id,
         no: index + 1,
         nim: doc.data().nim,
+        nama: doc.data().nama,
         tahun: doc.data().tahun,
         judul: doc.data().judul,
         abstrak: doc.data().abstrak,
@@ -165,7 +167,7 @@ const Tabeldata = () => {
         });
     });
 
-    navigate("/Hasiluji", {
+    navigate("/Hasil", {
       state: {
         prediksi: prediksiensemble,
         akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
@@ -245,7 +247,7 @@ const Tabeldata = () => {
               });
           });
 
-          navigate("/Hasiluji", {
+          navigate("/Hasil", {
             state: {
               prediksi: prediksiensemble,
               akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),

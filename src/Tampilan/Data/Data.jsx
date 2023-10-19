@@ -9,6 +9,7 @@ const Data = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     nim: "",
+    nama: "",
     tahun: "",
     judul: "",
     abstrak: "",
@@ -20,19 +21,22 @@ const Data = () => {
     const collectionRef = collection(db, "skripsi");
     addDoc(collectionRef, {
       nim: state.nim,
+      nama: state.nama,
       tahun: state.tahun,
       judul: state.judul,
       abstrak: state.abstrak,
     })
       .then((docRef) => {
         console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
-        navigate("/data")
+<<<<<<< HEAD
+
+=======
+        navigate("/tambahdata");
+>>>>>>> e3ed234fff27f23ad3036bbb0df03bf084c9b4da
       })
       .catch((error) => {
         console.error("Error menambahkan dokumen: ", error);
       });
-
-    
   };
 
   const onHandledChanged = (event) => {
@@ -59,6 +63,16 @@ const Data = () => {
               name="nim"
               label="NIM"
               autoComplete="nim"
+              onChange={onHandledChanged}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} md={12} marginTop="40px">
+            <TextField
+              fullWidth
+              name="nama"
+              label="Nama"
+              autoComplete="nama"
               onChange={onHandledChanged}
               required
             />
