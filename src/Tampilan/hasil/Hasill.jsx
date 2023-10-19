@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Workbook } from "exceljs";
@@ -8,6 +20,7 @@ import { db } from "../../database/firebase";
 
 const Hasill = () => {
   const datapredik = useLocation();
+  const akurasiNB = datapredik?.state?.akurasiNB;
   const [data, setData] = useState([]);
   const columns = [
     { field: "id", headerName: "NO", width: 70 },
@@ -94,8 +107,100 @@ const Hasill = () => {
           </Button>
         </Grid>
 
-        <Grid item xs={11} md={12} style={{ height: 400 }} marginTop="2px">
+        <Grid item xs={12} md={12} style={{ height: 400 }} marginTop="2px">
           <DataGrid rows={data} columns={columns} />
+        </Grid>
+        <Grid item xs={12} md={12} marginTop="50px">
+          <Grid
+            container
+            xs={12}
+            md={12}
+            justifyContent="center"
+            alignItems="start"
+          >
+            <Grid item xs={11.8} md={11.8}>
+              <Typography variant="p" fontSize="24px">
+                Skor Pengujian
+              </Typography>
+            </Grid>
+            <Grid item xs={11.8} md={11.8}>
+              <Box>
+                <TableContainer component={Paper} elevation={10}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell>
+                          <b>Nilai Akurasi</b>
+                        </TableCell>
+                        <TableCell>
+                          <b>Nilai MAE</b>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <b>Naive Bayes</b>
+                        </TableCell>
+                        <TableCell>{akurasiNB ?? "null"}%</TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.maeNB}`
+                            : "null"}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Support Vector Machine</b>
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.akurasisvm}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.maesvm}`
+                            : "null"}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>K-Nearest Neighbor</b>
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.akurasiknn}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.maeknn}`
+                            : "null"}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <b>Ensemble Classifier</b>
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.akurasiensemble}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.maeensemble}`
+                            : "null"}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Box>
