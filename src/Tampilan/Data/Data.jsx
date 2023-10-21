@@ -28,11 +28,7 @@ const Data = () => {
     })
       .then((docRef) => {
         console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
-<<<<<<< HEAD
-
-=======
         navigate("/tambahdata");
->>>>>>> e3ed234fff27f23ad3036bbb0df03bf084c9b4da
       })
       .catch((error) => {
         console.error("Error menambahkan dokumen: ", error);
