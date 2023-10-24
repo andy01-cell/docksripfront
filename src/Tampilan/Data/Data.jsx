@@ -27,11 +27,11 @@ const Data = () => {
       abstrak: state.abstrak,
     })
       .then((docRef) => {
-        console.log("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
-        navigate("/tambahdata");
+        alert("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
+        navigate("/data");
       })
       .catch((error) => {
-        console.error("Error menambahkan dokumen: ", error);
+        alert("Error menambahkan dokumen: ", error);
       });
   };
 
@@ -118,6 +118,7 @@ const Data = () => {
             <Button
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
+              onClick={() => navigate("/data")}
             >
               Batal
             </Button>
