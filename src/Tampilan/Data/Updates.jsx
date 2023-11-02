@@ -9,6 +9,7 @@ const Updates = () => {
   const idji = idubah.state.test;
   const [state, setState] = useState({
     nim: "",
+    nama: "",
     tahun: "",
     judul: "",
     abstrak: "",
@@ -27,6 +28,7 @@ const Updates = () => {
           const data = docSnap.data();
           setState({
             nim: data.nim,
+            nama: data.nama,
             tahun: data.tahun,
             judul: data.judul,
             abstrak: data.abstrak,
@@ -52,13 +54,14 @@ const Updates = () => {
 
   const onBtnsimpan = () => {
     const db = getFirestore();
-    const { nim, tahun, judul, abstrak } = state;
+    const { nim, nama, tahun, judul, abstrak } = state;
 
     const skripsiRef = doc(db, "skripsi", idji);
 
     // Update data di Firestore
     updateDoc(skripsiRef, {
       nim,
+      nama,
       tahun,
       judul,
       abstrak,
@@ -92,6 +95,17 @@ const Updates = () => {
               onChange={onHandledChanged}
               required
               value={state.nim}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} marginTop="40px">
+            <TextField
+              fullWidth
+              name="nama"
+              label="Nama"
+              autoComplete="nama"
+              onChange={onHandledChanged}
+              required
+              value={state.nama}
             />
           </Grid>
           <Grid item xs={12} md={12} marginTop="30px">
@@ -142,6 +156,7 @@ const Updates = () => {
             <Button
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
+              onClick={() => navigate("/data")}
             >
               Batal
             </Button>
