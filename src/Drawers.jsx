@@ -86,14 +86,10 @@ const Drawers = () => {
         >
           <IconButton
             onClick={handleDrawerClose}
-            // sx={{ backgroundColor: "#646632" }}
           >
             {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
             {isDrawerOpen ? <MenuIcon /> : <MenuIcon />}
           </IconButton>
-          <ListItem>
-            <Grid container paddingTop="50px">
-              <Grid item xs={12} md={12}>
                 <Typography
                   textAlign="center"
                   variant="p"
@@ -102,7 +98,9 @@ const Drawers = () => {
                 >
                   ENSEMBLE CLASSIFIER
                 </Typography>
-              </Grid>
+          <ListItem>
+            <Grid container paddingTop="50px">
+              
               <Grid
                 item
                 xs={12}
