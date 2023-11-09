@@ -22,7 +22,7 @@ const Drawers = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(0);
 
   const handleDrawerOpen = () => {
-    setIsDrawerOpen(335);
+    setIsDrawerOpen(320);
   };
   const handleDrawerClose = () => {
     setIsDrawerOpen(0);
@@ -54,12 +54,11 @@ const Drawers = () => {
     <Box
       sx={{
         display: "flex",
-        height: "100vh",
+        // height: "100vh",
       }}
     >
       <CssBaseline />
-      <Box
-      >
+      <Box>
         <IconButton onClick={handleDrawerOpen}>
           {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
           {isDrawerOpen ? <ChevronLeftIcon /> : <MenuIcon />}
@@ -76,7 +75,7 @@ const Drawers = () => {
           },
         }}
         variant="permanent"
-        anchor="left"
+        // anchor="left"
       >
         <List
           sx={{
@@ -84,28 +83,38 @@ const Drawers = () => {
             height: "100vh",
           }}
         >
-          <IconButton
-            onClick={handleDrawerClose}
-          >
-            {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
-            {isDrawerOpen ? <MenuIcon /> : <MenuIcon />}
-          </IconButton>
-                <Typography
-                  textAlign="center"
-                  variant="p"
-                  fontSize="24px"
-                  color="#FFFFFF"
-                >
-                  ENSEMBLE CLASSIFIER
-                </Typography>
+          <Grid container>
+            <Grid item>
+              <IconButton onClick={handleDrawerClose}>
+                {/* Gunakan state atau variabel untuk mengatur ikon yang sesuai */}
+                {isDrawerOpen ? (
+                  <MenuIcon
+                    style={{ width: "24px", height: "24px", color: "white" }}
+                  />
+                ) : (
+                  <MenuIcon
+                    style={{ width: "24px", height: "24px", color: "white" }}
+                  />
+                )}
+              </IconButton>
+            </Grid>
+            <Grid item marginTop="4px">
+              <Typography
+                textAlign="center"
+                variant="p"
+                fontSize="20px"
+                color="#FFFFFF"
+              >
+                ENSEMBLE CLASSIFIER
+              </Typography>
+            </Grid>
+          </Grid>
           <ListItem>
-            <Grid container paddingTop="50px">
-              
+            <Grid container paddingTop="30px">
               <Grid
                 item
                 xs={12}
                 md={12}
-                paddingTop="50px"
                 onClick={() => informasiklik("nyala1")}
               >
                 <Typography

@@ -220,9 +220,9 @@ const Tabeldata = () => {
         item
         xs={12}
         md={11.7}
-        marginTop="-30px"
+        // marginTop="-30px"
         marginBottom="60px"
-        marginLeft="143vh"
+        marginLeft="138vh"
       >
         <Button
           variant="contained"
@@ -233,10 +233,10 @@ const Tabeldata = () => {
         </Button>
       </Grid>
 
-      <Grid item xs={11} md={11.7} style={{ height: 400 }} marginTop="-80px">
+      <Grid item xs={11} md={11.7} style={{ height: 400 }} marginTop="-50px">
         <DataGrid rows={data} columns={columns} />
       </Grid>
-      <Grid item xs={12} md={11.7} marginTop="0px" marginLeft="75vh">
+      <Grid item xs={12} md={11.7} marginTop="10px" marginLeft="75vh">
         <Button
           variant="contained"
           sx={{ backgroundColor: "#646632" }}
