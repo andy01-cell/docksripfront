@@ -54,7 +54,7 @@ const Drawers = () => {
     <Box
       sx={{
         display: "flex",
-        // height: "100vh",
+        height: "100vh",
       }}
     >
       <CssBaseline />
