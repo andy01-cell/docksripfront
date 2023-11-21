@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import "@fontsource/open-sans";
 
 const Updates = () => {
   const navigate = useNavigate();
@@ -82,7 +83,12 @@ const Updates = () => {
       <Grid item xs={10} md={10} marginTop="70px">
         <Grid container justifyContent="center" xs={12} md={12}>
           <Grid item xs={12} md={12}>
-            <Typography textAlign="center" variant="p" fontSize="24px">
+            <Typography
+              textAlign="center"
+              variant="p"
+              fontSize="24px"
+              style={{ fontFamily: "Open Sans" }}
+            >
               Ubah Data Skripsi
             </Typography>
           </Grid>
@@ -148,6 +154,7 @@ const Updates = () => {
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
               onClick={onBtnsimpan}
+              style={{ fontFamily: "Open Sans" }}
             >
               Simpan
             </Button>
@@ -157,6 +164,7 @@ const Updates = () => {
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
               onClick={() => navigate("/data")}
+              style={{ fontFamily: "Open Sans" }}
             >
               Batal
             </Button>

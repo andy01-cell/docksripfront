@@ -12,21 +12,31 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Workbook } from "exceljs";
 import { db } from "../../database/firebase";
+import "@fontsource/open-sans";
 
 const Hasill = () => {
   const datapredik = useLocation();
   const akurasiNB = datapredik?.state?.akurasiNB;
   const [data, setData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const columns = [
     { field: "id", headerName: "NO", width: 70 },
-    { field: "nk", headerName: "Judul", width: 340 },
-    { field: "d", headerName: "Abstrak", width: 450 },
-    { field: "class", headerName: "Class", width: 130 },
+    { field: "judul", headerName: "Judul", width: 340 },
+    { field: "abstrak", headerName: "Abstrak", width: 450 },
+    { field: "classens", headerName: "Class Ensemble", width: 130 },
+    { field: "classsvm", headerName: "Class SVM", width: 130 },
+    { field: "classknn", headerName: "Class KNN", width: 130 },
+    { field: "classnb", headerName: "Class Naive Bayes", width: 150 },
   ];
 
   const downloadExcel = async () => {
@@ -79,21 +89,51 @@ const Hasill = () => {
       const querySnapshot = await getDocs(collection(db, "klasifikasi"));
       const newData = querySnapshot.docs.map((doc, index) => ({
         id: index + 1,
-        nk: doc.data().judul,
-        d: doc.data().abstrak,
-        class: doc.data().ensemble,
+        judul: doc.data().judul,
+        abstrak: doc.data().abstrak,
+        classens: doc.data().ensemble,
+        classsvm: doc.data().svm,
+        classknn: doc.data().knn,
+        classnb: doc.data().nb,
+        docData: doc.data(),
       }));
       setData(newData);
     };
 
     fetchData();
   }, []);
-  console.log("test = ", datapredik.state);
+
+  const handleRowClick = (params) => {
+    setSelectedRow(params.row);
+    setDialogOpen(true);
+  };
+
+  const dialogContent = (
+    <div>
+      {selectedRow && (
+        <>
+          <DialogTitle>{selectedRow.judul}</DialogTitle>
+          <DialogContent>
+            <div>{selectedRow.abstrak}</div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDialogOpen(false)}>Close</Button>
+          </DialogActions>
+        </>
+      )}
+    </div>
+  );
+
+  console.log("data = ", data);
   return (
     <Box sx={{ maxHeight: "100vh", maxWidth: "158vh" }} marginRight="20px">
       <Grid container xs={12} md={12} justifyContent="end" marginTop="50px">
         <Grid item xs={12} md={12}>
-          <Typography variant="p" fontSize="24px">
+          <Typography
+            variant="p"
+            fontSize="24px"
+            style={{ fontFamily: "Open Sans" }}
+          >
             Data Hasil Klasifikasi
           </Typography>
         </Grid>
@@ -108,8 +148,11 @@ const Hasill = () => {
         </Grid>
 
         <Grid item xs={12} md={12} style={{ height: 400 }} marginTop="2px">
-          <DataGrid rows={data} columns={columns} />
+          <DataGrid rows={data} columns={columns} onRowClick={handleRowClick} />
         </Grid>
+        <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+          {selectedRow && dialogContent}
+        </Dialog>
         <Grid item xs={12} md={12} marginTop="50px">
           <Grid
             container
@@ -119,7 +162,11 @@ const Hasill = () => {
             alignItems="start"
           >
             <Grid item xs={11.8} md={11.8}>
-              <Typography variant="p" fontSize="24px">
+              <Typography
+                variant="p"
+                fontSize="24px"
+                style={{ fontFamily: "Open Sans" }}
+              >
                 Skor Pengujian
               </Typography>
             </Grid>

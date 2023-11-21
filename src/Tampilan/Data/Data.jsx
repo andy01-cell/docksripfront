@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../database/firebase";
+import "@fontsource/open-sans";
 
 const Data = () => {
   const navigate = useNavigate();
@@ -49,7 +50,12 @@ const Data = () => {
       <Grid item xs={10} md={10} marginTop="70px">
         <Grid container justifyContent="center" xs={12} md={12}>
           <Grid item xs={12} md={12}>
-            <Typography textAlign="center" variant="p" fontSize="24px">
+            <Typography
+              textAlign="center"
+              variant="p"
+              fontSize="24px"
+              style={{ fontFamily: "Open Sans" }}
+            >
               Tambah Data Skripsi
             </Typography>
           </Grid>
@@ -110,6 +116,7 @@ const Data = () => {
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
               onClick={onBtnsimpan}
+              style={{ fontFamily: "Open Sans" }}
             >
               Simpan
             </Button>
@@ -119,6 +126,7 @@ const Data = () => {
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
               onClick={() => navigate("/data")}
+              style={{ fontFamily: "Open Sans" }}
             >
               Batal
             </Button>

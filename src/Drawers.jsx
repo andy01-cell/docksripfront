@@ -11,6 +11,7 @@ import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import "@fontsource/open-sans";
 
 const Drawers = () => {
   const navigate = useNavigate();
@@ -104,6 +105,7 @@ const Drawers = () => {
                 variant="p"
                 fontSize="20px"
                 color="#FFFFFF"
+                style={{ fontFamily: "Open Sans" }}
               >
                 ENSEMBLE CLASSIFIER
               </Typography>
@@ -126,6 +128,7 @@ const Drawers = () => {
                   onClick={() => navigate("/")}
                   style={{
                     cursor: "pointer",
+                    fontFamily: "Open Sans",
                   }}
                 >
                   Beranda
@@ -147,25 +150,12 @@ const Drawers = () => {
                   onClick={() => navigate("/data")}
                   style={{
                     cursor: "pointer",
+                    fontFamily: "Open Sans",
                   }}
                 >
                   Data
                 </Typography>
               </Grid>
-              {/* <Grid item xs={12} md={12} paddingTop="25px">
-                <Typography
-                  textAlign="center"
-                  variant="p"
-                  fontSize="24px"
-                  color="#FFFFFF"
-                  onClick={() => navigate("/Praproses")}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  Praproses
-                </Typography>
-              </Grid> */}
               <Grid
                 item
                 xs={12}
@@ -182,6 +172,7 @@ const Drawers = () => {
                   onClick={() => navigate("/Hasil")}
                   style={{
                     cursor: "pointer",
+                    fontFamily: "Open Sans",
                   }}
                 >
                   Hasil

@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 import axios from "axios";
 import { db } from "../../database/firebase";
+import "@fontsource/open-sans";
 
 const Tabeldata = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ const Tabeldata = () => {
 
     // Mendapatkan data dari koleksi yang Anda simpan di Firestore
     const fetchData = async () => {
+      // Specify the name of the collection you want to delete
       const querySnapshot = await getDocs(collection(db, "skripsi"));
       const newData = querySnapshot.docs.map((doc, index) => ({
         id: doc.id,
@@ -106,6 +108,26 @@ const Tabeldata = () => {
       }));
       setData(newData);
       console.log("data = ", data);
+
+      // Assuming "klasifikasi" is the name of your collection
+      const collectionReference = collection(db, "klasifikasi");
+
+      // Function to delete all documents in the collection
+      const deleteAllDocuments = async () => {
+        const querySnapshot = await getDocs(collectionReference);
+
+        // Iterate through all documents in the collection and delete them
+        querySnapshot.forEach(async (doc) => {
+          await deleteDoc(doc.ref);
+        });
+
+        console.log(
+          "All documents in 'klasifikasi' collection have been deleted."
+        );
+      };
+
+      // Call the function to delete all documents
+      deleteAllDocuments();
     };
 
     fetchData();
@@ -174,23 +196,22 @@ const Tabeldata = () => {
         prediksiensemble.forEach((item) => {
           addDoc(collectionRef, {
             ensemble: item.ensemble_prediksi,
+            knn: item.knn_prediction,
+            nb: item.nb_prediction,
+            svm: item.svm_prediction,
             abstrak: item.abstrak,
             judul: item.judul,
           })
-            .then((docRef) => {
-              console.log(
-                "Dokumen berhasil ditambahkan dengan ID: ",
-                docRef.id
-              );
-              alert("Dokumen berhasil ditambahkan dengan ID");
-            })
+            .then((docRef) => {})
             .catch((error) => {
               console.error("Error menambahkan dokumen: ", error);
               alert("Error menambahkan dokumen");
             });
+          // alert("Dokumen berhasil ditambahkan dengan ID");
         });
+        alert("Dokumen berhasil ditambahkan");
 
-        navigate("/Hasiluji", {
+        navigate("/Hasil", {
           state: {
             prediksi: prediksiensemble,
             akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
@@ -212,7 +233,11 @@ const Tabeldata = () => {
   return (
     <Grid container xs={12} md={12} justifyContent="center">
       <Grid item xs={12} md={11.7} marginTop="50px">
-        <Typography variant="p" fontSize="24px">
+        <Typography
+          variant="p"
+          fontSize="24px"
+          style={{ fontFamily: "Open Sans" }}
+        >
           Data Skripsi Mahasiswa
         </Typography>
       </Grid>
@@ -228,6 +253,7 @@ const Tabeldata = () => {
           variant="contained"
           sx={{ backgroundColor: "white", color: "black" }}
           onClick={() => navigate("/tambahdata")}
+          style={{ fontFamily: "Open Sans" }}
         >
           Tambah Data
         </Button>
@@ -241,6 +267,7 @@ const Tabeldata = () => {
           variant="contained"
           sx={{ backgroundColor: "#646632" }}
           onClick={onBtnklasifikasi}
+          style={{ fontFamily: "Open Sans" }}
         >
           Klasifikasi
         </Button>

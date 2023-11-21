@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
+import "@fontsource/open-sans";
 import React from "react";
 
 const Beranda = () => {
@@ -20,7 +21,12 @@ const Beranda = () => {
         //   backgroundColor: "#646632",
         // }}
       >
-        <Typography textAlign="center" variant="p" fontSize="28px">
+        <Typography
+          textAlign="center"
+          variant="p"
+          fontSize="28px"
+          style={{ fontFamily: "Open Sans" }}
+        >
           <b>
             KLASIFIKASI TOPIK DOKUMEN SKRIPSI BERDASARKAN JUDUL DAN ABSTRAK
             MENGGUNAKAN METODE ENSEMBLE CLASSIFIER
@@ -34,7 +40,12 @@ const Beranda = () => {
             backgroundColor: "#D9D9D9",
           }}
         >
-          <Typography textAlign="center" variant="p" fontSize="24px">
+          <Typography
+            textAlign="center"
+            variant="p"
+            fontSize="24px"
+            style={{ fontFamily: "Open Sans" }}
+          >
             Metode Ensemble Classifier merupakan gabungan dari tiga algoritma
             yaitu Naive Bayes, Support Vector Machine, dan K-Nearest Neighbor.
             Hasill Klasifikasi data akan terbagi menjadi tiga kelas peminatan
