@@ -6,7 +6,6 @@ import Data from "./Tampilan/Data/Data";
 import Beranda from "./Tampilan/Home/beranda";
 import Praproses from "./Tampilan/praproses/Praproses";
 import Hasill from "./Tampilan/hasil/Hasill";
-import Hasiluji from "./Tampilan/hasil/Hasiluji";
 import Tabeldata from "./Tampilan/Data/Tabeldata";
 import Updates from "./Tampilan/Data/Updates";
 
