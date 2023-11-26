@@ -21,7 +21,7 @@ const App = () => {
           <Route exact path="/update" element={<Updates />} />
           <Route exact path="/Praproses" element={<Praproses />} />
           <Route exact path="/Hasil" element={<Hasill />} />
-          {/* <Route exact path="/Hasiluji" element={<Hasiluji />} /> */}
+          {/* <Route exact path="/Hasiluji" element={<Hasiluji />} /> */}  
         </Route>
       </Routes>
     </div>

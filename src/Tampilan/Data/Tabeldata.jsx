@@ -39,10 +39,11 @@ const Tabeldata = () => {
 
   const columns = [
     { field: "no", headerName: "No", width: 50 },
-    { field: "nim", headerName: "NIM", width: 130 },
+    { field: "nim", headerName: "NIM", width: 100 },
+    { field: "nama", headerName: "Nama", width: 100 },
     { field: "tahun", headerName: "Tahun", width: 70 },
-    { field: "judul", headerName: "Judul", width: 280 },
-    { field: "abstrak", headerName: "Abstrak", width: 280 },
+    { field: "judul", headerName: "Judul", width: 250 },
+    { field: "abstrak", headerName: "Abstrak", width: 250 },
     {
       field: "opsi",
       headerName: "Opsi",
@@ -101,6 +102,7 @@ const Tabeldata = () => {
         id: doc.id,
         no: index + 1,
         nim: doc.data().nim,
+        nama: doc.data().nama,
         tahun: doc.data().tahun,
         judul: doc.data().judul,
         abstrak: doc.data().abstrak,
@@ -259,7 +261,7 @@ const Tabeldata = () => {
         </Button>
       </Grid>
 
-      <Grid item xs={11} md={11.7} style={{ height: 400 }} marginTop="-50px">
+      <Grid item xs={11} md={12} style={{ height: 400 }} marginTop="-50px">
         <DataGrid rows={data} columns={columns} />
       </Grid>
       <Grid item xs={12} md={11.7} marginTop="10px" marginLeft="75vh">
@@ -272,25 +274,6 @@ const Tabeldata = () => {
           Klasifikasi
         </Button>
       </Grid>
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Peringatan!"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            apakah anda yakin ingin menghapusnya?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>tidak</Button>
-          <Button onClick={handleClose} autoFocus>
-            iya
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </Grid>
   );
 };
