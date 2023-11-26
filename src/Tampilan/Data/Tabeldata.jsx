@@ -213,6 +213,12 @@ const Tabeldata = () => {
         });
         alert("Dokumen berhasil ditambahkan");
 
+        navigate("/", {
+          state : {
+            path : "/Hasil"
+          }
+        })
+
         navigate("/Hasil", {
           state: {
             prediksi: prediksiensemble,

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Grid, IconButton } from "@mui/material";
-import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import "@fontsource/open-sans";
+import { useLocation } from "react-router-dom";
 
 const Drawers = () => {
   const navigate = useNavigate();
@@ -50,6 +50,29 @@ const Drawers = () => {
       setDisabled2("");
     }
   };
+
+  const data = useLocation();
+  console.log("datadrawer = ", data);
+
+  useEffect(() => {
+    if (data.pathname === "/") {
+      setDisabled("bold");
+      setDisabled1("");
+      setDisabled2("");
+    } else if (data.pathname === "/data") {
+      setDisabled1("bold");
+      setDisabled("");
+      setDisabled2("");
+    } else if (data.pathname === "/Hasil") {
+      setDisabled1("");
+      setDisabled("");
+      setDisabled2("bold");
+    } else {
+      setDisabled1("");
+      setDisabled("");
+      setDisabled2("");
+    }
+  }, [data.pathname]);
 
   return (
     <Box
