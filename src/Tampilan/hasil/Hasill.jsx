@@ -53,11 +53,25 @@ const Hasill = () => {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet("Data Firestore");
 
-    worksheet.addRow(["ensemble", "abstrak", "judul"]);
+    worksheet.addRow([
+      "ensemble",
+      "SVM",
+      "KNN",
+      "Naive Bayes",
+      "abstrak",
+      "judul",
+    ]);
 
     // Tambahkan data ke worksheet
     data.forEach((item) => {
-      worksheet.addRow([item.ensemble, item.abstrak, item.judul]);
+      worksheet.addRow([
+        item.ensemble,
+        item.svm,
+        item.knn,
+        item.nb,
+        item.abstrak,
+        item.judul,
+      ]);
     });
 
     // Simpan file Excel dalam blob
