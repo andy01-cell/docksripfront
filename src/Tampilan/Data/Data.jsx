@@ -2,7 +2,7 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../database/firebase";
 import "@fontsource/open-sans";
 
@@ -16,23 +16,33 @@ const Data = () => {
     abstrak: "",
   });
 
-  const onBtnsimpan = (e) => {
+  const onBtnsimpan = async (e) => {
     e.preventDefault();
-    console.log(state);
+
+    // Mendapatkan koleksi "skripsi"
     const collectionRef = collection(db, "skripsi");
+
+    // Mendapatkan data terakhir dalam koleksi
+    const querySnapshot = await getDocs(collectionRef);
+
+    // Menghitung ID untuk dokumen baru
+    const newId = querySnapshot.size + 1;
+
+    // Menambahkan dokumen dengan ID yang telah dihitung
     addDoc(collectionRef, {
+      id: newId,
       nim: state.nim,
       nama: state.nama,
       tahun: state.tahun,
       judul: state.judul,
       abstrak: state.abstrak,
     })
-      .then((docRef) => {
-        alert("Dokumen berhasil ditambahkan dengan ID: ", docRef.id);
+      .then(() => {
+        alert("Dokumen berhasil ditambahkan dengan ID: " + newId);
         navigate("/data");
       })
       .catch((error) => {
-        alert("Error menambahkan dokumen: ", error);
+        alert("Error menambahkan dokumen: " + error.message);
       });
   };
 

@@ -18,6 +18,8 @@ import {
   addDoc,
   doc,
   deleteDoc,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import axios from "axios";
 import { db } from "../../database/firebase";
@@ -90,14 +92,17 @@ const Tabeldata = () => {
     });
   };
 
+  // ...
+
   useEffect(() => {
-    // Inisialisasi Firebase dan Firestore
     const db = getFirestore();
 
-    // Mendapatkan data dari koleksi yang Anda simpan di Firestore
     const fetchData = async () => {
-      // Specify the name of the collection you want to delete
-      const querySnapshot = await getDocs(collection(db, "skripsi"));
+      // Mendapatkan data dari koleksi dan mengurutkannya berdasarkan ID
+      const querySnapshot = await getDocs(
+        query(collection(db, "skripsi"), orderBy("id"))
+      );
+
       const newData = querySnapshot.docs.map((doc, index) => ({
         id: doc.id,
         no: index + 1,
@@ -109,31 +114,13 @@ const Tabeldata = () => {
         class: doc.data().prediksi,
       }));
       setData(newData);
-      console.log("data = ", data);
-
-      // Assuming "klasifikasi" is the name of your collection
-      const collectionReference = collection(db, "klasifikasi");
-
-      // Function to delete all documents in the collection
-      const deleteAllDocuments = async () => {
-        const querySnapshot = await getDocs(collectionReference);
-
-        // Iterate through all documents in the collection and delete them
-        querySnapshot.forEach(async (doc) => {
-          await deleteDoc(doc.ref);
-        });
-
-        console.log(
-          "All documents in 'klasifikasi' collection have been deleted."
-        );
-      };
-
-      // Call the function to delete all documents
-      deleteAllDocuments();
     };
 
     fetchData();
   }, []);
+
+  // ...
+
   console.log("test = ", datapredik.state);
 
   const handleUbahClick = (id) => {
@@ -214,10 +201,10 @@ const Tabeldata = () => {
         alert("Dokumen berhasil ditambahkan");
 
         navigate("/", {
-          state : {
-            path : "/Hasil"
-          }
-        })
+          state: {
+            path: "/Hasil",
+          },
+        });
 
         navigate("/Hasil", {
           state: {
