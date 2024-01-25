@@ -97,6 +97,26 @@ const Tabeldata = () => {
   useEffect(() => {
     const db = getFirestore();
 
+    // Assuming "klasifikasi" is the name of your collection
+    const collectionReference = collection(db, "klasifikasi");
+
+    // Function to delete all documents in the collection
+    const deleteAllDocuments = async () => {
+      const querySnapshot = await getDocs(collectionReference);
+
+      // Iterate through all documents in the collection and delete them
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+
+      console.log(
+        "All documents in 'klasifikasi' collection have been deleted."
+      );
+    };
+
+    // Call the function to delete all documents
+    deleteAllDocuments();
+
     const fetchData = async () => {
       // Mendapatkan data dari koleksi dan mengurutkannya berdasarkan ID
       const querySnapshot = await getDocs(
@@ -179,6 +199,10 @@ const Tabeldata = () => {
         const MAEknn = res.data.knnmae;
         const MAENB = res.data.nbmae;
         const MAEensemble = res.data.ensemblemae;
+        const cv_nb = res.data.cv_nb;
+        const cv_svm = res.data.cv_svm;
+        const cv_knn = res.data.cv_knn;
+        const cv_ensemble = res.data.cv_ensemble;
         console.log("post succes : ", res.data.Naive_Bayes_MAE);
 
         const collectionRef = collection(db, "klasifikasi");
@@ -217,6 +241,10 @@ const Tabeldata = () => {
             maeknn: MAEknn,
             maeNB: MAENB,
             maeensemble: MAEensemble,
+            cv_ensemble: parseFloat(cv_ensemble * 100).toFixed(2),
+            cv_knn: parseFloat(cv_knn * 100).toFixed(2),
+            cv_nb: parseFloat(cv_nb * 100).toFixed(2),
+            cv_svm: parseFloat(cv_svm * 100).toFixed(2),
           },
         });
       })

@@ -195,6 +195,9 @@ const Hasill = () => {
                           <b>Nilai Akurasi</b>
                         </TableCell>
                         <TableCell>
+                          <b>Cross Validation</b>
+                        </TableCell>
+                        <TableCell>
                           <b>Nilai MAE</b>
                         </TableCell>
                       </TableRow>
@@ -205,6 +208,11 @@ const Hasill = () => {
                           <b>Naive Bayes</b>
                         </TableCell>
                         <TableCell>{akurasiNB ?? "null"}%</TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.cv_nb}%`
+                            : "null"}
+                        </TableCell>
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.maeNB}`
@@ -218,6 +226,11 @@ const Hasill = () => {
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.akurasisvm}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.cv_svm}%`
                             : "null"}
                         </TableCell>
                         <TableCell>
@@ -237,6 +250,11 @@ const Hasill = () => {
                         </TableCell>
                         <TableCell>
                           {datapredik.state
+                            ? `${datapredik.state.cv_knn}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
                             ? `${datapredik.state.maeknn}`
                             : "null"}
                         </TableCell>
@@ -248,6 +266,11 @@ const Hasill = () => {
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.akurasiensemble}%`
+                            : "null"}
+                        </TableCell>
+                        <TableCell>
+                          {datapredik.state
+                            ? `${datapredik.state.cv_ensemble}%`
                             : "null"}
                         </TableCell>
                         <TableCell>
