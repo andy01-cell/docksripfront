@@ -191,9 +191,9 @@ const Hasill = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell></TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           <b>Nilai Akurasi</b>
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           <b>Cross Validation</b>
                         </TableCell>
@@ -207,7 +207,7 @@ const Hasill = () => {
                         <TableCell>
                           <b>Naive Bayes</b>
                         </TableCell>
-                        <TableCell>{akurasiNB ?? "null"}%</TableCell>
+                        {/* <TableCell>{akurasiNB ?? "null"}%</TableCell> */}
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.cv_nb}%`
@@ -223,11 +223,11 @@ const Hasill = () => {
                         <TableCell>
                           <b>Support Vector Machine</b>
                         </TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.akurasisvm}%`
                             : "null"}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.cv_svm}%`
@@ -243,11 +243,11 @@ const Hasill = () => {
                         <TableCell>
                           <b>K-Nearest Neighbor</b>
                         </TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.akurasiknn}%`
                             : "null"}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.cv_knn}%`
@@ -263,11 +263,11 @@ const Hasill = () => {
                         <TableCell>
                           <b>Ensemble Classifier</b>
                         </TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.akurasiensemble}%`
                             : "null"}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           {datapredik.state
                             ? `${datapredik.state.cv_ensemble}%`
