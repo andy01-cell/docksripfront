@@ -191,6 +191,9 @@ const Hasill = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell></TableCell>
+                        {/* <TableCell>
+                          <b>Nilai Akurasi</b>
+                        </TableCell> */}
                         <TableCell sx={{ textAlign: "center" }}>
                           <b>
                             Cross Validation <br /> K=7
@@ -202,7 +205,7 @@ const Hasill = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      <TableRow>
+                      <TableRow >
                         <TableCell>
                           <b>Naive Bayes</b>
                         </TableCell>
@@ -272,7 +275,7 @@ const Hasill = () => {
                             ? `${datapredik.state.cv_ensemble}%`
                             : "null"}
                         </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
+                        <TableCell >
                           {datapredik.state
                             ? `${datapredik.state.maeensemble}`
                             : "null"}

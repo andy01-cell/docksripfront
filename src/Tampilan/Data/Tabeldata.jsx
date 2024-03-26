@@ -24,19 +24,20 @@ import {
 import axios from "axios";
 import { db } from "../../database/firebase";
 import "@fontsource/open-sans";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Tabeldata = () => {
   const navigate = useNavigate();
   const datapredik = useLocation();
   const [data, setData] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setLoading(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setLoading(false);
   };
 
   const columns = [
@@ -171,6 +172,7 @@ const Tabeldata = () => {
 
   const onBtnklasifikasi = (e) => {
     e.preventDefault();
+    handleClickOpen();
     const jsonData = {
       data: data,
     };
@@ -286,14 +288,15 @@ const Tabeldata = () => {
         <DataGrid rows={data} columns={columns} />
       </Grid>
       <Grid item xs={12} md={11.7} marginTop="10px" marginLeft="75vh">
-        <Button
+        <LoadingButton
+          loading={loading}
           variant="contained"
           sx={{ backgroundColor: "#646632" }}
           onClick={onBtnklasifikasi}
           style={{ fontFamily: "Open Sans" }}
         >
           Klasifikasi
-        </Button>
+        </LoadingButton>
       </Grid>
     </Grid>
   );
