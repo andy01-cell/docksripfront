@@ -54,23 +54,23 @@ const Hasill = () => {
     const worksheet = workbook.addWorksheet("Data Firestore");
 
     worksheet.addRow([
-      "ensemble",
-      "SVM",
-      "KNN",
-      "Naive Bayes",
-      "abstrak",
       "judul",
+      "abstrak",
+      "Naive Bayes",
+      "KNN",
+      "SVM",
+      "ensemble",
     ]);
 
     // Tambahkan data ke worksheet
     data.forEach((item) => {
       worksheet.addRow([
-        item.ensemble,
-        item.svm,
-        item.knn,
-        item.nb,
-        item.abstrak,
         item.judul,
+        item.abstrak,
+        item.nb,
+        item.knn,
+        item.svm,
+        item.ensemble,
       ]);
     });
 
@@ -191,13 +191,12 @@ const Hasill = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell></TableCell>
-                        {/* <TableCell>
-                          <b>Nilai Akurasi</b>
-                        </TableCell> */}
-                        <TableCell>
-                          <b>Cross Validation</b>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          <b>
+                            Cross Validation <br /> K=7
+                          </b>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <b>Nilai MAE</b>
                         </TableCell>
                       </TableRow>
@@ -208,12 +207,12 @@ const Hasill = () => {
                           <b>Naive Bayes</b>
                         </TableCell>
                         {/* <TableCell>{akurasiNB ?? "null"}%</TableCell> */}
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.cv_nb}%`
                             : "null"}
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.maeNB}`
                             : "null"}
@@ -228,12 +227,12 @@ const Hasill = () => {
                             ? `${datapredik.state.akurasisvm}%`
                             : "null"}
                         </TableCell> */}
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.cv_svm}%`
                             : "null"}
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.maesvm}`
                             : "null"}
@@ -248,12 +247,12 @@ const Hasill = () => {
                             ? `${datapredik.state.akurasiknn}%`
                             : "null"}
                         </TableCell> */}
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.cv_knn}%`
                             : "null"}
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.maeknn}`
                             : "null"}
@@ -268,12 +267,12 @@ const Hasill = () => {
                             ? `${datapredik.state.akurasiensemble}%`
                             : "null"}
                         </TableCell> */}
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.cv_ensemble}%`
                             : "null"}
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           {datapredik.state
                             ? `${datapredik.state.maeensemble}`
                             : "null"}
