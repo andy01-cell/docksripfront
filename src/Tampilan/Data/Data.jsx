@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../database/firebase";
 import "@fontsource/open-sans";
+import { LoadingButton } from "@mui/lab";
 
 const Data = () => {
   const navigate = useNavigate();
@@ -16,9 +17,101 @@ const Data = () => {
     abstrak: "",
   });
 
-  const onBtnsimpan = async (e) => {
-    e.preventDefault();
+  const [loading, setLoading] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setLoading(true);
+  };
+
+  const handleClose = () => {
+    setLoading(false);
+  };
+
+  const onBtnklasifikasi = (e) => {
+    e.preventDefault();
+    handleClickOpen();
+    const jsonData = {
+      data: [state],
+    };
+
+    const jsonString = JSON.stringify(jsonData);
+
+    console.log("babdataki = ", jsonString);
+    axios
+      .post("http://localhost:5000/predict", jsonData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        onBtnsimpan();
+        console.log("post succes : ", res);
+        const prediksiensemble = res.data.predictions;
+        const akurasiNB = res.data.nbakurasi;
+        const akurasisvm = res.data.svmakurasi;
+        const akurasiknn = res.data.knnakurasi;
+        const akurasiensemble = res.data.ensembleakurasi;
+        const MAEsvm = res.data.svmmae;
+        const MAEknn = res.data.knnmae;
+        const MAENB = res.data.nbmae;
+        const MAEensemble = res.data.ensemblemae;
+        const cv_nb = res.data.cv_nb;
+        const cv_svm = res.data.cv_svm;
+        const cv_knn = res.data.cv_knn;
+        const cv_ensemble = res.data.cv_ensemble;
+        console.log("post succes : ", res);
+
+        const collectionRef = collection(db, "klasifikasi");
+        prediksiensemble.forEach((item) => {
+          addDoc(collectionRef, {
+            ensemble: item.ensemble_prediksi,
+            knn: item.knn_prediction,
+            nb: item.nb_prediction,
+            svm: item.svm_prediction,
+            abstrak: item.abstrak,
+            judul: item.judul,
+          })
+            .then((docRef) => {})
+            .catch((error) => {
+              console.error("Error menambahkan dokumen: ", error);
+              alert("Error menambahkan dokumen");
+            });
+          // alert("Dokumen berhasil ditambahkan dengan ID");
+        });
+        alert("Dokumen berhasil ditambahkan");
+
+        navigate("/", {
+          state: {
+            path: "/Hasil",
+          },
+        });
+
+        navigate("/Hasil", {
+          state: {
+            prediksi: prediksiensemble,
+            akurasiknn: parseFloat(akurasiknn * 100).toFixed(2),
+            akurasisvm: parseFloat(akurasisvm * 100).toFixed(2),
+            akurasiNB: parseFloat(akurasiNB * 100).toFixed(2),
+            akurasiensemble: parseFloat(akurasiensemble * 100).toFixed(2),
+            maesvm: MAEsvm,
+            maeknn: MAEknn,
+            maeNB: MAENB,
+            maeensemble: MAEensemble,
+            cv_ensemble: parseFloat(cv_ensemble * 100).toFixed(2),
+            cv_knn: parseFloat(cv_knn * 100).toFixed(2),
+            cv_nb: parseFloat(cv_nb * 100).toFixed(2),
+            cv_svm: parseFloat(cv_svm * 100).toFixed(2),
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("ERRRR:: ", err.response.data);
+        handleClose();
+        alert("Terjadi Kesalahan inputan");
+      });
+  };
+
+  const onBtnsimpan = async (e) => {
     // Mendapatkan koleksi "skripsi"
     const collectionRef = collection(db, "skripsi");
 
@@ -38,8 +131,7 @@ const Data = () => {
       abstrak: state.abstrak,
     })
       .then(() => {
-        alert("Dokumen berhasil ditambahkan dengan ID: " + newId);
-        navigate("/data");
+        console.log("Dokumen berhasil ditambahkan dengan ID: " + newId);
       })
       .catch((error) => {
         alert("Error menambahkan dokumen: " + error.message);
@@ -77,6 +169,7 @@ const Data = () => {
               autoComplete="nim"
               onChange={onHandledChanged}
               required
+              // type="number"
             />
           </Grid>
           <Grid item xs={12} md={12} marginTop="40px">
@@ -121,17 +214,19 @@ const Data = () => {
               required
             />
           </Grid>
-          <Grid item xs={1.5} md={1.5} marginTop="30px">
-            <Button
+          <Grid item xs={2} md={2} marginTop="30px">
+            <LoadingButton
+              loading={loading}
               variant="contained"
-              sx={{ backgroundColor: "white", color: "black" }}
-              onClick={onBtnsimpan}
+              sx={{ backgroundColor: "#646632" }}
+              // onClick={onBtnsimpan}
+              onClick={onBtnklasifikasi}
               style={{ fontFamily: "Open Sans" }}
             >
-              Simpan
-            </Button>
+              Klasifikasi
+            </LoadingButton>
           </Grid>
-          <Grid item xs={10.5} md={10.5} marginTop="30px">
+          <Grid item xs={10} md={10} marginTop="30px">
             <Button
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
